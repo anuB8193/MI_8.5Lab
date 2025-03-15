@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Books List</title>
+    <title>Books Table</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script> 
+    <script type="module" src="script.js"></script> <!-- Link external JS -->
 </head>
 <body>
     <h1>Books Table</h1>
 
-    <!-- List to display books -->
-    <ul id="books"></ul>
-
-    <!-- Link to external JavaScript file -->
-    <script type="module" src="script.js"></script>
+    <!-- Table structure -->
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+            </tr>
+        </thead>
+        <tbody id="books">
+            <!-- Book data will be populated here -->
+        </tbody>
+    </table>
 </body>
 </html>
