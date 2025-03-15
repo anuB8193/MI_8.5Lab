@@ -22,7 +22,7 @@ async function fetchBooks() {
             <tr>
                 <td>${book.title}</td>
                 <td>${book.author}</td>
-                <td>${book.isbn}</td>
+                <td>${book.ISBN}</td>
             </tr>
         `;
         bookTable.innerHTML += row;
