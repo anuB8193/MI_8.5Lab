@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books List</title>
+    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+    <script type="module">
+        import { createClient } from "https://esm.sh/@supabase/supabase-js";
+
+        const supabaseUrl = "https://eauyinglebjntykpjclz.supabase.co";
+        const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVhdXlpbmdsZWJqbnR5a3BqY2x6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDE5ODk5MTEsImV4cCI6MjA1NzU2NTkxMX0.NgBd1Ju67mOqKfiViyCbdrk7whjTMwbOdJsHJhB1HsQ";
+        const supabase = createClient(supabaseUrl, supabaseKey);
+
+        document.addEventListener("alpine:init", () => {
+            Alpine.store("booksData", {
+                books: [],
+                async fetchBooks() {
+                    let { data, error } = await supabase.from("books").select("*");
+                    if (error) {
+                        console.error("Error fetching books:", error);
+                    } else {
+                        this.books = data;
+                    }
+                }
+            });
+
+            // Fetch books after defining the store
+            Alpine.store("booksData").fetchBooks();
+        });
+    </script>
+</head>
+<body>
+    <h1>Books Table</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Author</th>
+                <th>ISBN</th>
+            </tr>
+        </thead>
+        <tbody x-data="$store.booksData">
+            <template x-for="book in books" :key="book.isbn">
+                <tr>
+                    <td x-text="book.title"></td>
+                    <td x-text="book.author"></td>
+                    <td x-text="book.ISBN"></td> <!-- FIXED: `book.ISBN` → `book.isbn` -->
+                </tr>
+            </template>
+        </tbody>
+    </table>
+</body>
+</html>
